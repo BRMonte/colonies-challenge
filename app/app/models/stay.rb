@@ -1,12 +1,19 @@
 class Stay < ApplicationRecord
   belongs_to :studio
 
+  before_save :set_end_date, unless: :end_date_present?
+
   validates :start_date, presence: true
   validates :end_date, comparison: { greater_than: :start_date }, if: :end_date_present?
   validate :start_date_after_open_calendar
   validate :no_overlapping_stays, if: :end_date_present?
 
   private
+
+  def set_end_date
+    standart_duration = 3
+    self.end_date = start_date + standart_duration if start_date
+  end
 
   def end_date_present?
     end_date.present?

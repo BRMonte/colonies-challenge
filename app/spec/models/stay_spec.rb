@@ -1,6 +1,30 @@
 require 'rails_helper'
 
 RSpec.describe Stay, type: :model do
+  describe 'callbacks' do
+    describe 'set_end_date' do
+      let(:no_end_date_stay) { build(:stay, :without_end_date) }
+      let(:stay) { build(:stay, start_date: Date.today, end_date: Date.tomorrow) }
+
+      context 'when end_date is not present' do
+        it 'sets end_date to 3 days after start_date' do
+          standart_duration = 3
+          no_end_date_stay.save
+
+          expect(no_end_date_stay.end_date).to eq(no_end_date_stay.start_date + standart_duration)
+        end
+      end
+
+      context 'when end_date is present' do
+        it 'keeps original end_date' do
+          stay.save
+
+          expect(stay.end_date).to eq(Date.tomorrow)
+        end
+      end
+    end
+  end
+
   describe 'validations' do
     it 'is valid with valid attributes' do
       stay = build(:stay)
