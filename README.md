@@ -78,17 +78,17 @@ Split your terminal and with the server running make requests with the below com
 Install curl command if needed.
 
 ```ruby
- - curl http://localhost:3000/api/v1/absences
+ curl http://localhost:3000/api/v1/absences
 ```
 
 ```ruby
-  curl -X POST \
-   http://localhost:3000/api/v1/absences \
-   -H 'Content-Type: application/json' \
-   -d '{
-     "studio_id": 1,
-     "start_date": "2024-01-01",
-     "end_date": "2024-01-08"
+curl -X POST \
+  http://localhost:3000/api/v1/absences \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "studio_id": 1,
+    "start_date": "2024-01-01",
+    "end_date": "2024-01-08"
    }'
 
 ```
