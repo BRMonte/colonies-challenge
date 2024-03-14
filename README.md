@@ -30,7 +30,7 @@ bundle install
 
 ##### 4. Create, Migrate, and Seed the Database
 
-You can start the rails server using the command given below.
+You can create and set up the DB with the below command.
 
 ```ruby
 rails db:create
@@ -41,21 +41,41 @@ rails db:seed
 
 ##### 5. Run test files
 
-You can start the rails server using the command given below.
+In the terminal run tests with the below command.
 
 ```ruby
-bundle exec rspec ./spec/models
-bundle exec rspec ./spec/routes
-bundle exec rspec ./spec/requests
+bundle exec rspec ./spec
 
 ```
 
-##### . Start the Rails Server
+##### 6. Start the Rails Server
 
-You can start the rails server using the command given below.
+You can start the rails server with the below command.
 
 ```ruby
 rails s
+
+```
+
+##### 7. Endpoints
+
+You can list absences and create absences with the below endpoints.
+
+```ruby
+GET /api/v1/absences: Retrieve a list of absences
+POST /api/v1/absences: Create an absence
+
+```
+
+##### 8. Make requests
+Split your terminal and with the server running make requests with the below commands.
+Install curl command if needed.
+
+```ruby
+<!-- GET /api/v1/absences: Retrieve a list of absences -->
+curl http://localhost:3000/api/v1/absences
+
+<!-- POST /api/v1/absences: Create an absences -->
 
 ```
 
