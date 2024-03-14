@@ -1,3 +1,5 @@
+# Colonies tech challenge
+
 ##### Prerequisites
 
 The setups steps expect following tools installed on the system.
@@ -6,21 +8,23 @@ The setups steps expect following tools installed on the system.
 - Rails 7.1.3
 - PostgreSQL
 
-##### 1. Clone the Repository
+### I. Instructions
+
+#### 1. Clone the Repository
 Open your terminal and run the following command to clone the repository:
 
 ```bash
 git clone git@github.com:BRMonte/colonies-challenge.git
 ```
 
-##### 2. Navigate to Project Directory
+#### 2. Navigate to Project Directory
 Change into the project directory:
 
 ```bash
 cd app
 ```
 
-##### 3. Install Dependencies
+#### 3. Install Dependencies
 
 Run the following command.
 
@@ -28,7 +32,7 @@ Run the following command.
 bundle install
 ```
 
-##### 4. Create, Migrate, and Seed the Database
+#### 4. Set up Database
 
 You can create and set up the DB with the below command.
 
@@ -39,7 +43,7 @@ rails db:seed
 
 ```
 
-##### 5. Run test files
+#### 5. Run test files
 
 In the terminal run tests with the below command.
 
@@ -48,7 +52,9 @@ bundle exec rspec ./spec
 
 ```
 
-##### 6. Start the Rails Server
+#### II. Make requests
+
+#### 1. Start the Rails Server
 
 You can start the rails server with the below command.
 
@@ -57,7 +63,7 @@ rails s
 
 ```
 
-##### 7. Endpoints
+#### 2. Endpoints
 
 You can list absences and create absences with the below endpoints.
 
@@ -67,7 +73,7 @@ POST /api/v1/absences: Create an absence
 
 ```
 
-##### 8. Make requests
+#### 3. Make requests
 Split your terminal and with the server running make requests with the below commands.
 Install curl command if needed.
 
@@ -76,6 +82,14 @@ Install curl command if needed.
 curl http://localhost:3000/api/v1/absences
 
 <!-- POST /api/v1/absences: Create an absences -->
+curl -X POST \
+  http://localhost:3000/api/v1/absences \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "studio_id": 1,
+    "start_date": "2024-01-01",
+    "end_date": "2024-01-08"
+  }'
 
 ```
 
