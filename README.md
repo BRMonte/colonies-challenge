@@ -88,9 +88,9 @@ curl -X POST \
   http://localhost:3000/api/v1/absences \
   -H 'Content-Type: application/json' \
   -d '{
-    "studio_id": ** 1 **,
-    "start_date": ** "2024-01-01" **,
-    "end_date": ** "2024-01-08" **
+    "studio_id": 1,
+    "start_date": "2024-01-01",
+    "end_date": "2024-01-08"
    }'
 
 ```
