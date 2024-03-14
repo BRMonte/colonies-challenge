@@ -78,10 +78,12 @@ Split your terminal and with the server running make requests with the below com
 Install curl command if needed.
 
 ```ruby
-<!-- GET /api/v1/absences: Retrieve a list of absences -->
+// GET /api/v1/absences: Retrieve a list of absences
 curl http://localhost:3000/api/v1/absences
+```
 
-<!-- POST /api/v1/absences: Create an absences -->
+```ruby
+// POST /api/v1/absences: Create an absences
 curl -X POST \
   http://localhost:3000/api/v1/absences \
   -H 'Content-Type: application/json' \
