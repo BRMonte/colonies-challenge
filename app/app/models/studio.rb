@@ -14,6 +14,8 @@ class Studio < ApplicationRecord
   end
 
   def get_absences
+    return ['No stays booked'] unless stays.present?
+
     absences = []
     prev_end_date = stays.first[:start_date]
 
