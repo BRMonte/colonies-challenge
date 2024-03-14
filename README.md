@@ -14,7 +14,7 @@ The setups steps expect following tools installed on the system.
 Open your terminal and run the following command to clone the repository:
 
 ```bash
-git clone git@github.com:BRMonte/colonies-challenge.git
+git clone git@github.com:YOUR-USERNAME/colonies-challenge.git
 ```
 
 #### 2. Navigate to Project Directory
