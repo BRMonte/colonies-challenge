@@ -32,6 +32,7 @@ RSpec.describe Studio, type: :model do
       it 'returns absences for all studios' do
         studio1 = create(:studio, name: 'Studio 1')
         studio2 = create(:studio, name: 'Studio 2')
+        studio3 = create(:studio, name: 'Studio 3')
 
         create(:stay, studio: studio1, start_date: Date.new(2024, 1, 1), end_date: Date.new(2024, 1, 8))
         create(:stay, studio: studio1, start_date: Date.new(2024, 1, 16), end_date: Date.new(2024, 1, 24))
@@ -57,7 +58,8 @@ RSpec.describe Studio, type: :model do
               start_date: Date.new(2024, 1, 26),
               end_date: Date.new(2024, 3, 2),
             }
-          ]
+          ],
+          "#{studio3.name}/id:#{studio3.id}"=> ["No stays booked"]
         }
 
         expect(Studio.absences).to eq(expected_result)
