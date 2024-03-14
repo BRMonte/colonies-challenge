@@ -5,7 +5,10 @@ Stay.destroy_all
 # Create studios
 studio1 = Studio.create(name: "Studio 1")
 studio2 = Studio.create(name: "Studio 2")
-studio3 = Studio.create(name: "Studio 3")
+
+16.times do |empty_stay|
+  Studio.create(name: "Studio #{empty_stay + 2}")
+end
 
 # Create stays for studio1
 Stay.create(studio: studio1, start_date: Date.new(2024, 1, 1), end_date: Date.new(2024, 1, 8))
