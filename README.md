@@ -39,7 +39,18 @@ rails db:seed
 
 ```
 
-##### 5. Start the Rails Server
+##### 5. Run test files
+
+You can start the rails server using the command given below.
+
+```ruby
+bundle exec rspec ./spec/models
+bundle exec rspec ./spec/routes
+bundle exec rspec ./spec/requests
+
+```
+
+##### . Start the Rails Server
 
 You can start the rails server using the command given below.
 
