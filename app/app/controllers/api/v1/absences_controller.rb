@@ -7,7 +7,7 @@ module Api
 
       def index
         absences = Studio.absences
-        render json: { absences: [absences] }, status: :ok
+        render json: { absences: absences }, status: :ok
       end
 
       def create
