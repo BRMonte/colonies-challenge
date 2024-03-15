@@ -1,11 +1,13 @@
 module Api
   module V1
     class AbsencesController < ActionController::API
+      rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
       before_action :set_studio, only: [:create]
+      DATE_FORMAT = "%d/%m/%Y".freeze
 
       def index
         absences = Studio.absences
-        render json: { absences: absences }, status: :ok
+        render json: { absences: [absences] }, status: :ok
       end
 
       def create
@@ -26,11 +28,24 @@ module Api
       end
 
       def absence_params
-          params.require(:absence).permit(
-            :studio_id,
-            :start_date,
-            :end_date
-          )
+        params.require(:absence).permit(
+          :studio_id,
+          :start_date,
+          :end_date
+        ).merge(
+          start_date: parse_date(params[:start_date]),
+          end_date: parse_date(params[:end_date])
+        )
+      end
+
+      def parse_date(date_string)
+        Date.strptime(date_string, DATE_FORMAT)
+      rescue ArgumentError
+        nil
+      end
+
+      def record_not_found(exception)
+        render json: { error: 'Studio could not found' }, status: :not_found
       end
     end
   end

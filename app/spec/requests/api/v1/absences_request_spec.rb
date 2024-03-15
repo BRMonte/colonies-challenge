@@ -24,19 +24,57 @@ RSpec.describe "Api::V1::Absences", type: :request do
     it "returns the correct response body" do
       get "/api/v1/absences"
 
-      expected_response = {
-        "absences" => {
-          "#{@studio1.name}/id:#{@studio1.id}" => [
-            { "start_date" => "2024-01-09", "end_date" => "2024-01-15" }
-          ],
-          "#{@studio2.name}/id:#{@studio2.id}" => [
-            { "start_date" => "2024-01-11", "end_date" => "2024-01-14" }
-          ],
-          "#{@studio3.name}/id:#{@studio3.id}" => ["No stays booked"]
+      expected_result = [
+        {
+          studio_id: @studio1.id,
+          studio_name: @studio1.name,
+          absences: [
+            {
+              start_date: "09/01/2024",
+              end_date: "15/01/2024"
+            }
+          ]
+        },
+        {
+          studio_id: @studio2.id,
+          studio_name: @studio2.name,
+          absences: [
+            {
+              start_date: "01/01/2024",
+              end_date: "04/01/2024"
+            },
+            {
+              start_date: "11/01/2024",
+              end_date: "14/01/2024"
+            },
+            {
+              start_date: "26/01/2024",
+              end_date: "02/03/2024"
+            }
+          ]
+        },
+        {
+          studio_id: @studio3.id,
+          studio_name: @studio3.name,
+          absences: "No stays booked"
         }
-      }
+      ]
 
-      expect(JSON.parse(response.body)).to eq(expected_response)
+      p 'LETS SEE THE DIFFERENCE BETWEEN RESPONSE.BODY AND EXPECTED RESPONSE'
+      p '- - - -  -- - - - - - - -  -- -  --  - - - - '
+      p '- - - -  -- - - JSON.parse(response.body) BODY START -  -- -  --  - - - - '
+      p '* * * - - >   ', JSON.parse(response.body)
+      p '- - - -  -- - - JSON.parse(response.body) BODY END -  -- -  --  - - - - '
+      print '-   -   -   - '
+            p '- - - -  -- - - - - - - -  -- -  --  - - - - '
+      p '- - - -  -- - - expected_result START -  -- -  --  - - - - '
+      p '* * * - - >   ', expected_result
+      p '- - - -  -- - - expected_result END -  -- -  --  - - - - '
+
+      expected_result_adjusted = [expected_result]
+      expected_result_json = expected_result_adjusted.to_json
+
+      expect(JSON.parse(response.body)).to eq(expected_result_adjusted)
     end
 
   end
