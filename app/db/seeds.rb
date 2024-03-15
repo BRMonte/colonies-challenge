@@ -13,6 +13,9 @@ end
 # Create stays for studio1
 Stay.create(studio: studio1, start_date: Date.new(2024, 1, 1), end_date: Date.new(2024, 1, 8))
 Stay.create(studio: studio1, start_date: Date.new(2024, 1, 16), end_date: Date.new(2024, 1, 24))
+Stay.create(studio: studio1, start_date: Date.new(2024, 3, 10), end_date: Date.new(2024, 3, 29))
+Stay.create(studio: studio1, start_date: Date.new(2024, 5, 2), end_date: Date.new(2024, 5, 7))
+Stay.create(studio: studio1, start_date: Date.new(2024, 8, 8), end_date: Date.new(2024, 8, 22))
 
 # Create stays for studio2
 Stay.create(studio: studio2, start_date: Date.new(2024, 1, 5), end_date: Date.new(2024, 1, 10))

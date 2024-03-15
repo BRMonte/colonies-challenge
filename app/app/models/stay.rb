@@ -1,4 +1,5 @@
 class Stay < ApplicationRecord
+  OPEN_CALENDAR_AT = Date.new(2024, 1, 1).freeze
   belongs_to :studio
 
   before_save :set_end_date, unless: :end_date_present?
@@ -20,8 +21,7 @@ class Stay < ApplicationRecord
   end
 
   def start_date_after_open_calendar
-    open_calendar = Date.new(2024, 1, 1)
-    errors.add(:start_date, "Can't be before calendar is open") if start_date && start_date < open_calendar
+    errors.add(:start_date, "Can't be before calendar is open") if start_date && start_date < OPEN_CALENDAR_AT
   end
 
   def no_overlapping_stays

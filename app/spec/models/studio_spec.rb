@@ -42,25 +42,37 @@ RSpec.describe Studio, type: :model do
         create(:stay, studio: studio2, start_date: Date.new(2024, 1, 21), end_date: Date.new(2024, 1, 25))
         create(:stay, studio: studio2, start_date: Date.new(2024, 3, 3), end_date: Date.new(2024, 4, 15))
 
-        expected_result = {
-          "#{studio1.name}/id:#{studio1.id}"=> [
-            {
-              start_date: Date.new(2024, 1, 9),
-              end_date: Date.new(2024, 1, 15),
-            }
-          ],
-          "#{studio2.name}/id:#{studio2.id}"=> [
-            {
-              start_date: Date.new(2024, 1, 11),
-              end_date: Date.new(2024, 1, 14),
-            },
-            {
-              start_date: Date.new(2024, 1, 26),
-              end_date: Date.new(2024, 3, 2),
-            }
-          ],
-          "#{studio3.name}/id:#{studio3.id}"=> ["No stays booked"]
-        }
+        expected_result = [
+          {
+            studio_id: studio1.id,
+            studio_name: studio1.name,
+            absences: [
+              {
+                start_date: "09/01/2024",
+                end_date: "15/01/2024"
+              }
+            ]
+          },
+          {
+            studio_id: studio2.id,
+            studio_name: studio2.name,
+            absences: [
+              {
+                start_date: "11/01/2024",
+                end_date: "14/01/2024"
+              },
+              {
+                start_date: "26/01/2024",
+                end_date: "02/03/2024"
+              }
+            ]
+          },
+          {
+            studio_id: studio3.id,
+            studio_name: studio3.name,
+            absences: "No stays booked"
+          }
+        ]
 
         expect(Studio.absences).to eq(expected_result)
       end

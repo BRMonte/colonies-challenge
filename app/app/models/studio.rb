@@ -4,50 +4,40 @@ class Studio < ApplicationRecord
   validates :name, presence: true, uniqueness: true
 
   def self.absences
-    return 'No Studios to check' if Studio.count == 0
+    return 'No Studios to check' if Studio.count.zero?
 
-    studios_with_absences = {}
+    absences_data = []
 
     all.includes(:stays).each do |studio|
-      studios_with_absences["#{studio.name}/id:#{studio.id}"] = studio.get_absences
+      absences = studio.get_absences
+      next if absences.empty?
+
+      absences_data.concat(absences.map { |absence| { studio_id: studio.id, studio_name: studio.name, absences: absence } })
     end
 
-    studios_with_absences
+    absences_data
   end
 
   def find_affected_stays(start_date, end_date)
     stays.where("start_date <= ? AND end_date >= ?", end_date, start_date)
   end
 
-  def adjust_stays(start_date, end_date)
-    affected_stays = find_affected_stays(start_date, end_date)
-    affected_stays.each do |stay|
-        start_distance = (start_date - stay.start_date).to_i
-        end_distance = (stay.end_date - end_date).to_i
-
-        if start_distance > end_distance
-          stay.update(end_date: stay.start_date + (end_date - start_date).days - 1.day)
-        else
-          stay.update(start_date: stay.end_date - (end_date - start_date).days + 1.day)
-        end
-    end
-  end
-
   def get_absences
     return ['No stays booked'] unless stays.present?
 
     absences = []
-    prev_end_date = stays.first[:start_date]
+    stays.order(start_date: :asc).each_cons(2) do |previous_stay, stay|
+      absence_start_date = previous_stay.end_date + 1
+      absence_end_date = stay.start_date - 1
 
-    stays.each do |stay|
-      absence_start_date = prev_end_date + 1
-      absence_end_date = stay[:start_date] - 1
-
-      absences << { start_date: absence_start_date, end_date: absence_end_date } if absence_start_date <= absence_end_date
-
-      prev_end_date = [prev_end_date, stay[:end_date]].max
+      if absence_start_date <= absence_end_date
+        absences << {
+          start_date: absence_start_date.strftime("%d/%m/%Y"),
+          end_date: absence_end_date.strftime("%d/%m/%Y")
+        }
+      end
     end
 
-    absences
+    [absences]
   end
 end
