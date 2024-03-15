@@ -89,8 +89,8 @@ curl -X POST \
   -H 'Content-Type: application/json' \
   -d '{
     "studio_id": 1,
-    "start_date": "2024-01-01",
-    "end_date": "2024-01-08"
+    "start_date": "01/01/2024",
+    "end_date": "08/01/2024"
    }'
 
 ```
